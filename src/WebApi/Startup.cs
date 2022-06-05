@@ -1,4 +1,5 @@
 ﻿using Application;
+using Application.Services;
 using Core;
 using DataAccess;
 using Microsoft.OpenApi.Models;
@@ -20,8 +21,9 @@ public class Startup
         services.AddEndpointsApiExplorer();
         services.AddSwaggerGen();
 
-        services.AddTransient<IService, Service>();
-        services.AddTransient<IMainService, MainService>();
+        services.AddTransient<IIdGenerator, IdGenerator>();
+        services.AddSingleton<IOrderRepository, OrderRepository>();
+        services.AddTransient<IOrderService, OrderService>();
     }
 
     public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
